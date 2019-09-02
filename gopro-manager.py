@@ -100,8 +100,8 @@ class GoPro(object):
         self.bt_mac = bt_mac
 
     def gatttool_write(self, command):
-        return subprocess.call("sudo gatttool -t random -b {bt} --char-write-req -a 0x33 -n {val} || "+
-                               "sudo gatttool -t random -b {bt} --char-write-req -a 0x2f -n {val}".format(bt=self.bt_mac, val=command), shell=True, timeout=10)
+        return subprocess.call("sudo gatttool -t random -b {bt} --char-write-req -a 0x33 -n {val}; \
+                                sudo gatttool -t random -b {bt} --char-write-req -a 0x2f -n {val}".format(bt=self.bt_mac, val=command), shell=True, timeout=10)
 
     def power_on(self):
         if self.is_wifi_connected():
@@ -123,12 +123,10 @@ class GoPro(object):
                 logging.warn("{} unreachable over Bluetooth LE. Is camera in deep sleep?")
                 wifi_on = None
 
-            while True:
+            for attempt in range(1, 10):
                 logging.info("Waiting for wifi to associate to {}".format(self.ssid))
-                for attempt in range(1, 10):
-                    time.sleep(1)
-                    if self.is_wifi_connected(): break
-                break
+                time.sleep(1)
+                if self.is_wifi_connected(): break
 
         wake_on_lan = subprocess.call("sudo wakeonlan -p 9 -i 10.5.5.9 {}".format(self.wifi_mac), shell=True)
         logging.debug("Wake-on-lan sent to {}".format(self.ssid))
@@ -149,7 +147,7 @@ class GoPro(object):
         return False
 
     def ensure_connection(self):
-        for attempt in range(1, 3):
+        for attempt in range(1, 5):
             logging.debug('Attempt number {} to connect to {}'.format(attempt, self.ssid))
             try:
                 if self.power_on():
