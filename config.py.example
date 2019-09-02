@@ -1,0 +1,9 @@
+GPIO_BCM_PIN = 5                # Pin that GPIO trigger is connected to, USE BCM numbering! See https://pinout.xyz
+TRIGGER_PATH = '/tmp/recording' # Used to manually trigger recording for testing if file exists
+CHECK_STATUS = 15               # Check camera capture status sync every X cycles (seconds, loosely), set to None to disable
+
+# Cameras are configured as a list of tuples in the format of: interface, SSID, wifi-address, bluetooth-address
+GOPROS = [
+  ('wlan1', 'My Hero 7', '06:41:69:98:85:c4', 'c1:58:37:fd:3f:d2'),
+  ('wlan2', 'My Other Hero 7', 'd6:32:60:0f:5d:96', 'c7:34:5f:77:78:8d')
+]

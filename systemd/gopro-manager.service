@@ -1,0 +1,12 @@
+[Unit]
+Description=GoPro camera recording manager
+Before=network.target
+After=dbus.service
+Wants=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/gopro-manager/gopro-manager.py
+
+[Install]
+WantedBy=multi-user.target
