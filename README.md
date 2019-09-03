@@ -26,11 +26,11 @@ Overview:
 1. Configure your wifi to connect to your GoPros. Also see below.
 1. Clone this checkout somewhere on the device. (e.g. `/usr/local/gopro-manager`)
 1. Create a configuration file as `config.py` in that directory. (Copy `config.py.example` for a base)
-1. Copy or move the `gopro_manager.service` from the `systemd` directory into `/etc/systemd/system`. If you don't use `/usr/local/gopro-manager` for the checkout location, update that path in the service file. With that in place, you can `sudo systemctl daemon-reload; sudo systemctl enable gopro-manager`.
+1. Copy or move the `gopro-manager.service` from the `systemd` directory into `/etc/systemd/system`. If you don't use `/usr/local/gopro-manager` for the checkout location, update that path in the service file. With that in place, you can `sudo systemctl daemon-reload; sudo systemctl enable gopro-manager`.
 
 ##### How do I find what the wifi address of my GoPro is?
 
-It's easiest to ensure your wireless connections are active by toggling `Wireless Connections` off and then on via the onscreen menus, then do a scan on your device with `sudo iw wlan0 scan`. You'll get a fair amount of output, look for the SSID if your GoPro and look at the top of the entry for the BSS address. That is your wifi address that you can plug in to the config.
+It's easiest to ensure your wireless connections are active by toggling `Wireless Connections` off and then on via the onscreen menus, then do a scan on your device with `sudo iw wlan0 scan`. You'll get a fair amount of output, look for the SSID of your GoPro and look at the top of the entry for the BSS address. That is your wifi address that you can plug in to the config.
 
 ##### How do I configure my device to connect to the GoPros' Wifi?
 
