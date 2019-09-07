@@ -58,7 +58,7 @@ class GoProManager(object):
         self.gopros.append(gp)
 
     def change_route(self, iface):
-        subprocess.call('sudo ip route replace 10.5.5.9 dev {} proto dhcp scope link'.format(iface), shell=True)
+        subprocess.call('sudo ip route replace 10.5.5.9 dev {} proto dhcp scope link metric 0'.format(iface), shell=True)
 
     def start_monitor(self):
         i = 0
@@ -105,7 +105,7 @@ class GoPro(object):
 
     def power_on(self):
         if self.is_wifi_connected():
-            for attempt in range(1, 10):
+            for attempt in range(1, 3):
                 try:
                     wake_on_lan = subprocess.call("sudo wakeonlan -p 9 -i 10.5.5.9 {}".format(self.wifi_mac), shell=True)
                     # logging.debug("Wake-on-lan sent to {}".format(self.ssid))
